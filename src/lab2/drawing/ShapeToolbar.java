@@ -3,6 +3,7 @@ package lab2.drawing;
 
 import lab2.shapes.Shape;
 import lab2.shapes.composite.ShapeList;
+import lab2.shapes.exceptions.InvalidArgumentException;
 import lab2.util.ClassRetriever;
 
 import javax.swing.*;
@@ -75,15 +76,17 @@ public class ShapeToolbar extends JPanel {
                     return;
                 }
 
-                Shape shape = (Shape)constructFromParameters.invoke(null, parameters);
-
+                Shape shape = (Shape) constructFromParameters.invoke(null, parameters);
                 shapeList.addShape(shape);
 
                 canvas.repaint();
             } catch (IllegalAccessException e1) {
                 e1.printStackTrace();
             } catch (InvocationTargetException e1) {
-                e1.printStackTrace();
+                JOptionPane.showMessageDialog(
+                        null, String.format("Invalid shape: %s", e1.getCause().getMessage()), "Error",
+                        JOptionPane.ERROR_MESSAGE
+                );
             }
         });
         shapeCreationButtons.add(createButton);
