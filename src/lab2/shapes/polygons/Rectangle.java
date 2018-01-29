@@ -1,11 +1,12 @@
 package lab2.shapes.polygons;
 
 
+import lab2.drawers.Drawer;
+import lab2.drawers.RectangleDrawer;
 import lab2.shapes.Shape;
 import lab2.shapes.exceptions.InvalidArgumentException;
 import lab2.shapes.util.Point;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -50,20 +51,10 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return "Rectangle{" +
+        return "RectangleDrawer{" +
                 "leftUpper=" + leftUpper +
                 ", rightBottom=" + rightBottom +
                 '}';
-    }
-
-    @Override
-    public void paint(Graphics2D graphics) {
-        graphics.drawRect(
-                (int)leftUpper.getX(),
-                (int)leftUpper.getY(),
-                (int)(rightBottom.getX() - leftUpper.getX()),
-                (int)(rightBottom.getY() - leftUpper.getY())
-        );
     }
 
     public static List<String> getParameterNames() {
@@ -75,5 +66,10 @@ public class Rectangle implements Shape {
                 new Point(parameters.get("x1"), parameters.get("y1")),
                 new Point(parameters.get("x2"), parameters.get("y2"))
         );
+    }
+
+    @Override
+    public Drawer getDrawer() {
+        return new RectangleDrawer(this);
     }
 }

@@ -24,6 +24,6 @@ public class ShapeCanvas extends JPanel {
         Graphics2D graphics = (Graphics2D)g;
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        shape.paint(graphics);
+        shape.getDrawer().paint(graphics);
     }
 }

@@ -1,11 +1,11 @@
 package lab2.shapes.polygons;
 
 
+import lab2.drawers.Drawer;
+import lab2.drawers.TriangleDrawer;
 import lab2.shapes.Shape;
 import lab2.shapes.util.Point;
 
-import java.awt.*;
-import java.awt.geom.Path2D;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -50,22 +50,11 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Triangle{" +
+        return "TriangleDrawer{" +
                 "point1=" + point1 +
                 ", point2=" + point2 +
                 ", point3=" + point3 +
                 '}';
-    }
-
-    @Override
-    public void paint(Graphics2D graphics) {
-        Path2D path = new Path2D.Double();
-        path.moveTo(point1.getX(), point1.getY());
-        path.lineTo(point2.getX(), point2.getY());
-        path.lineTo(point3.getX(), point3.getY());
-        path.closePath();
-
-        graphics.draw(path);
     }
 
     public static List<String> getParameterNames() {
@@ -78,5 +67,10 @@ public class Triangle implements Shape {
                 new Point(parameters.get("x2"), parameters.get("y2")),
                 new Point(parameters.get("x3"), parameters.get("y3"))
         );
+    }
+
+    @Override
+    public Drawer getDrawer() {
+        return new TriangleDrawer(this);
     }
 }

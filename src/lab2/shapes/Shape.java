@@ -1,8 +1,8 @@
 package lab2.shapes;
 
-import java.awt.*;
+import lab2.drawers.Drawer;
 
 
 public interface Shape {
-    void paint(Graphics2D graphics);
+    Drawer getDrawer();
 }

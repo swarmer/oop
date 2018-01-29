@@ -1,12 +1,13 @@
 package lab2.shapes.polygons;
 
 
+import lab2.drawers.Drawer;
+import lab2.drawers.EquilateralPolygonDrawer;
 import lab2.shapes.Segment;
 import lab2.shapes.Shape;
 import lab2.shapes.exceptions.InvalidArgumentException;
 import lab2.shapes.util.Point;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,7 +42,7 @@ public class EquilateralPolygon implements Shape {
         return radius;
     }
 
-    private List<Segment> getSegments() {
+    public List<Segment> getSegments() {
         List<Point> points = new ArrayList<>();
 
         final double angleDelta = 2 * Math.PI / edgeCount;
@@ -80,7 +81,7 @@ public class EquilateralPolygon implements Shape {
 
     @Override
     public String toString() {
-        return "EquilateralPolygon{" +
+        return "EquilateralPolygonDrawer{" +
                 "center=" + center +
                 ", edgeCount=" + edgeCount +
                 ", radius=" + radius +
@@ -88,9 +89,7 @@ public class EquilateralPolygon implements Shape {
     }
 
     @Override
-    public void paint(Graphics2D graphics) {
-        for (Segment segment : getSegments()) {
-            segment.paint(graphics);
-        }
+    public Drawer getDrawer() {
+        return new EquilateralPolygonDrawer(this);
     }
 }

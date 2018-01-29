@@ -1,10 +1,10 @@
 package lab2.shapes;
 
+import lab2.drawers.CircleDrawer;
+import lab2.drawers.Drawer;
 import lab2.shapes.exceptions.InvalidArgumentException;
 import lab2.shapes.util.Point;
 
-import java.awt.*;
-import java.awt.geom.Ellipse2D;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.List;
@@ -47,20 +47,10 @@ public class Circle implements lab2.shapes.Shape {
 
     @Override
     public String toString() {
-        return "Circle{" +
+        return "CircleDrawer{" +
                 "center=" + center +
                 ", radius=" + radius +
                 '}';
-    }
-
-    @Override
-    public void paint(Graphics2D graphics) {
-        graphics.draw(new Ellipse2D.Double(
-                center.getX() - radius,
-                center.getY() - radius,
-                2 * radius,
-                2 * radius
-        ));
     }
 
     public static List<String> getParameterNames() {
@@ -72,5 +62,10 @@ public class Circle implements lab2.shapes.Shape {
                 new Point(parameters.get("center_x"), parameters.get("center_y")),
                 parameters.get("radius")
         );
+    }
+
+    @Override
+    public Drawer getDrawer() {
+        return new CircleDrawer(this);
     }
 }

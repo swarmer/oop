@@ -1,6 +1,8 @@
 package lab2.shapes.composite;
 
 
+import lab2.drawers.Drawer;
+import lab2.drawers.ShapeListDrawer;
 import lab2.shapes.Shape;
 
 import java.awt.*;
@@ -25,7 +27,7 @@ public class ShapeList implements Shape {
         this.shapes.add(shape);
     }
 
-    public List getShapes() {
+    public List<Shape> getShapes() {
         return Collections.unmodifiableList(shapes);
     }
 
@@ -44,15 +46,13 @@ public class ShapeList implements Shape {
 
     @Override
     public String toString() {
-        return "ShapeList{" +
+        return "ShapeListDrawer{" +
                 "shapes=" + shapes +
                 '}';
     }
 
     @Override
-    public void paint(Graphics2D graphics) {
-        for (Shape shape : shapes) {
-            shape.paint(graphics);
-        }
+    public Drawer getDrawer() {
+        return new ShapeListDrawer(this);
     }
 }

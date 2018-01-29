@@ -1,18 +1,18 @@
 package lab2.shapes;
 
 
+import lab2.drawers.Drawer;
+import lab2.drawers.SegmentDrawer;
 import lab2.shapes.exceptions.InvalidArgumentException;
 import lab2.shapes.util.Point;
 
-import java.awt.*;
-import java.awt.geom.Line2D;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 
-public class Segment implements lab2.shapes.Shape {
+public class Segment implements Shape {
     private Point start, end;
 
     public Segment(Point start, Point end) throws InvalidArgumentException {
@@ -47,15 +47,10 @@ public class Segment implements lab2.shapes.Shape {
 
     @Override
     public String toString() {
-        return "Segment{" +
+        return "SegmentDrawer{" +
                 "start=" + start +
                 ", end=" + end +
                 '}';
-    }
-
-    @Override
-    public void paint(Graphics2D graphics) {
-        graphics.draw(new Line2D.Double(start.getX(), start.getY(), end.getX(), end.getY()));
     }
 
     public static List<String> getParameterNames() {
@@ -67,5 +62,10 @@ public class Segment implements lab2.shapes.Shape {
                 new Point(parameters.get("start_x"), parameters.get("start_y")),
                 new Point(parameters.get("end_x"), parameters.get("end_y"))
         );
+    }
+
+    @Override
+    public Drawer getDrawer() {
+        return new SegmentDrawer(this);
     }
 }
