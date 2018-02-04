@@ -1,0 +1,150 @@
+package me.swarmer.ptoop.lab3.ui;
+
+
+import me.swarmer.ptoop.lab3.appliances.Appliance;
+import me.swarmer.ptoop.lab3.util.ClassRetriever;
+
+import java.io.IOException;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+
+public class ConsoleInterface {
+    private InterfaceState state = new InterfaceState();
+    private Scanner scanner = new Scanner(System.in);
+    private ConsoleMenu menu = buildMenu(scanner);
+    private List<Class<?>> applianceClasses = findApplianceClasses();
+
+    private ConsoleMenu buildMenu(Scanner scanner) {
+        ConsoleMenu menu = new ConsoleMenu(scanner, "Home appliance demo");
+
+        menu.addEntry("Load object list", this::loadObjectList);
+        menu.addEntry("Save object list", this::saveObjectList);
+        menu.addEntry("Print objects", this::printObjects);
+        menu.addEntry("Add object", this::addObject);
+        menu.addEntry("Edit object", this::editObject);
+        menu.addEntry("Remove object", this::removeObject);
+        menu.addEntry("Exit", () -> {
+            System.exit(0);
+        });
+
+        return menu;
+    }
+
+    private List<Class<?>> findApplianceClasses() {
+        try {
+            List<Class<?>> classes = ClassRetriever.getClasses("me.swarmer.ptoop.lab3.appliances");
+            List<Class<?>> applianceClasses = classes.stream()
+                    .filter((c) ->
+                            Appliance.class.isAssignableFrom(c) && !Modifier.isAbstract(c.getModifiers())
+                    )
+                    .collect(Collectors.toList());
+
+            return applianceClasses;
+        } catch (ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public void run() {
+        menu.askForever();
+    }
+
+    public static void main(String[] args) {
+        ConsoleInterface consoleInterface = new ConsoleInterface();
+        consoleInterface.run();
+    }
+
+    private void loadObjectList() {
+        System.out.println("Loading object list");
+    }
+
+    private void saveObjectList() {
+        System.out.println("Saving object list");
+    }
+
+    private void addObject() {
+        try {
+            for (int i = 0; i < applianceClasses.size(); ++i) {
+                Class applianceClass = applianceClasses.get(i);
+                System.out.printf("%d. %s\n", i + 1, applianceClass.getSimpleName());
+            }
+
+            System.out.print("Choice: ");
+            String input = scanner.nextLine();
+            int inputNumber = Integer.parseInt(input) - 1;
+
+            Class applianceClass = applianceClasses.get(inputNumber);
+            Appliance appliance = (Appliance)applianceClass.newInstance();
+
+            state.addAppliance(appliance);
+            editObjectByIndex(state.getAppliances().size() - 1);
+
+            System.out.println("Object added");
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            System.out.println("Invalid index");
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void editObjectByIndex(int index) {
+        Appliance appliance = state.getAppliance(index);
+
+        System.out.print("Name: ");
+        String name = scanner.nextLine();
+        appliance.setName(name);
+
+        System.out.print("Power: ");
+        double power = Double.parseDouble(scanner.nextLine());
+        appliance.setConsumedPower(power);
+
+        System.out.print("Turned on (true for on): ");
+        boolean turnedOn = Boolean.parseBoolean(scanner.nextLine());
+        appliance.setTurnedOn(turnedOn);
+    }
+
+    private void editObject() {
+        try {
+            System.out.print("Object index: ");
+            String inputIndex = scanner.nextLine();
+            int index = Integer.parseInt(inputIndex) - 1;
+
+            editObjectByIndex(index);
+
+            System.out.println("Edited");
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            System.out.println("Invalid index");
+        }
+    }
+
+    private void removeObject() {
+        try {
+            System.out.print("Object index: ");
+            String inputIndex = scanner.nextLine();
+            int index = Integer.parseInt(inputIndex) - 1;
+
+            state.removeAppliance(index);
+
+            System.out.println("Removed");
+        } catch (NumberFormatException | IndexOutOfBoundsException ex) {
+            System.out.println("Invalid index");
+        }
+    }
+
+    private void printObjects() {
+        System.out.println("Appliance list:");
+
+        List<Appliance> appliances = state.getAppliances();
+        for (int i = 0; i < appliances.size(); ++i) {
+            Appliance appliance = appliances.get(i);
+            System.out.printf("%d. %s\n", i + 1, appliance);
+        }
+    }
+}
