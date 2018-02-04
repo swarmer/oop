@@ -20,10 +20,18 @@ public class Hexagon extends EquilateralPolygon {
         return "Hexagon{" + super.toString() + "}";
     }
 
+    /**
+     * Get a list of parameters needed to construct this Shape
+     */
     public static List<String> getParameterNames() {
         return Arrays.asList("center_x", "center_y", "radius");
     }
 
+    /**
+     * Construct this shape from parameters
+     * @param parameters - a map from parameter names to values
+     * @return a new shape
+     */
     public static Shape constructFromParameters(Map<String, Double> parameters) {
         return new Hexagon(
                 new Point(parameters.get("center_x"), parameters.get("center_y")),

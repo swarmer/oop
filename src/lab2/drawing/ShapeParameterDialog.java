@@ -20,6 +20,10 @@ public class ShapeParameterDialog {
         }
     }
 
+    /**
+     * Show a dialog asking for specified parameters
+     * @return return a map of parameters passed by user
+     */
     public Map<String, Double> show() {
         while (true) {
             int result = JOptionPane.showConfirmDialog(
@@ -40,6 +44,10 @@ public class ShapeParameterDialog {
         }
     }
 
+    /**
+     * Collect parameter values from UI components and return them as a map
+     * @return a map of parameters
+     */
     public Map<String, Double> getParameters() {
         Map<String, Double> parameters = new HashMap<>();
 

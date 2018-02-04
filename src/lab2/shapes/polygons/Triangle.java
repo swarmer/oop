@@ -57,10 +57,18 @@ public class Triangle implements Shape {
                 '}';
     }
 
+    /**
+     * Get a list of parameters needed to construct this Shape
+     */
     public static List<String> getParameterNames() {
         return Arrays.asList("x1", "y1", "x2", "y2", "x3", "y3");
     }
 
+    /**
+     * Construct this shape from parameters
+     * @param parameters - a map from parameter names to values
+     * @return a new shape
+     */
     public static Shape constructFromParameters(Map<String, Double> parameters) {
         return new Triangle(
                 new Point(parameters.get("x1"), parameters.get("y1")),

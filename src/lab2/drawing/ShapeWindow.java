@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 
 
+/**
+ * The main graphics window
+ */
 public class ShapeWindow extends JFrame {
     private ShapeCanvas canvas;
     private ShapeToolbar shapeToolbar;

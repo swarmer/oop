@@ -53,10 +53,18 @@ public class Segment implements Shape {
                 '}';
     }
 
+    /**
+     * Get a list of parameters needed to construct this Shape
+     */
     public static List<String> getParameterNames() {
         return Arrays.asList("start_x", "start_y", "end_x", "end_y");
     }
 
+    /**
+     * Construct this shape from parameters
+     * @param parameters - a map from parameter names to values
+     * @return a new shape
+     */
     public static Shape constructFromParameters(Map<String, Double> parameters) {
         return new Segment(
                 new Point(parameters.get("start_x"), parameters.get("start_y")),

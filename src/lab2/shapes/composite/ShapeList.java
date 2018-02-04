@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Objects;
 
 
+/**
+ * A composite shape consisting of a number of subshapes
+ */
 public class ShapeList implements Shape {
     private List<Shape> shapes;
 

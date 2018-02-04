@@ -19,8 +19,11 @@ public class ClassRetriever {
      */
     public static List<Class> getClasses(String packageName)
             throws ClassNotFoundException, IOException {
+        // get a class loaders
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         assert classLoader != null;
+
+        // go over available directories
         String path = packageName.replace('.', '/');
         Enumeration<URL> resources = classLoader.getResources(path);
         List<File> dirs = new ArrayList<File>();
@@ -30,6 +33,7 @@ public class ClassRetriever {
         }
         ArrayList<Class> classes = new ArrayList<Class>();
         for (File directory : dirs) {
+            // add all classes from a directory
             classes.addAll(findClasses(directory, packageName));
         }
         return classes;
@@ -49,12 +53,15 @@ public class ClassRetriever {
             return classes;
         }
         File[] files = directory.listFiles();
+        // go over all files in a directory
         for (File file : files) {
             if (file.isDirectory()) {
                 assert !file.getName().contains(".");
+                // add classes from a subdirectory
                 classes.addAll(findClasses(file, packageName + "." + file.getName()));
             } else if (file.getName().endsWith(".class")) {
-                classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6)));
+                // add a class from a file
+                classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - ".class".length())));
             }
         }
         return classes;

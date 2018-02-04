@@ -16,6 +16,9 @@ import java.util.List;
 import java.util.Map;
 
 
+/**
+ * A toolbar of buttons allowing to add a new shape to a ShapeList
+ */
 public class ShapeToolbar extends JPanel {
     private ShapeCanvas canvas;
     private ShapeList shapeList;
@@ -35,6 +38,9 @@ public class ShapeToolbar extends JPanel {
         }
     }
 
+    /**
+     * Find all available shape classes
+     */
     private void findShapes() {
         try {
             List<Class> classes = ClassRetriever.getClasses("lab2.shapes");
@@ -63,22 +69,28 @@ public class ShapeToolbar extends JPanel {
     }
 
     private void handleShapeClass(Class c) throws NoSuchMethodException {
+        // Get required methods to construct a shape in a generic way
         Method getParameterNames = c.getMethod("getParameterNames");
         Method constructFromParameters = c.getMethod("constructFromParameters", Map.class);
 
+        // Add a button for this Shape class
         JButton createButton = new JButton(String.format("Create a %s", c.getSimpleName()));
         createButton.addActionListener(e -> {
+            // button clicked
             try {
                 List<String> parameterNames = (List<String>)getParameterNames.invoke(null);
 
+                // show a dialog asking the user for parameters
                 Map<String, Double> parameters = askForParameters(parameterNames);
                 if (parameters == null) {
                     return;
                 }
 
+                // construct a shape from these parameters and add it to the list
                 Shape shape = (Shape) constructFromParameters.invoke(null, parameters);
                 shapeList.addShape(shape);
 
+                // repaint the shape canvas
                 canvas.repaint();
             } catch (IllegalAccessException e1) {
                 e1.printStackTrace();

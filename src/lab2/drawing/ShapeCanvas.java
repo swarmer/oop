@@ -17,6 +17,10 @@ public class ShapeCanvas extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
     }
 
+    /**
+     * Paint this canvas: simply paints the underlying shape
+     * @param g - graphics
+     */
     @Override
     public void paint(Graphics g) {
         super.paint(g);
