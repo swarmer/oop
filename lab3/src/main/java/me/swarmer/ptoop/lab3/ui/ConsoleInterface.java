@@ -4,7 +4,7 @@ package me.swarmer.ptoop.lab3.ui;
 import me.swarmer.ptoop.lab3.appliances.Appliance;
 import me.swarmer.ptoop.lab3.util.ClassRetriever;
 
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 
 public class ConsoleInterface {
-    private InterfaceState state = new InterfaceState();
+    private ApplianceSet state = new ApplianceSet();
     private Scanner scanner = new Scanner(System.in);
     private ConsoleMenu menu = buildMenu(scanner);
     private List<Class<?>> applianceClasses = findApplianceClasses();
@@ -60,11 +60,38 @@ public class ConsoleInterface {
     }
 
     private void loadObjectList() {
-        System.out.println("Loading object list");
+        System.out.print("File path: ");
+        String path = scanner.nextLine();
+
+        try (FileInputStream fis = new FileInputStream(path)) {
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            ApplianceSet state = (ApplianceSet)ois.readObject();
+            this.state = state;
+
+            System.out.println("Loaded");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Can't open the file");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Invalid file");
+        }
     }
 
     private void saveObjectList() {
-        System.out.println("Saving object list");
+        System.out.print("File path: ");
+        String path = scanner.nextLine();
+
+        try (FileOutputStream fos = new FileOutputStream(path)) {
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(state);
+
+            System.out.println("Saved");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Can't open the file");
+        }
     }
 
     private void addObject() {

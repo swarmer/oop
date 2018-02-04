@@ -3,12 +3,13 @@ package me.swarmer.ptoop.lab3.ui;
 
 import me.swarmer.ptoop.lab3.appliances.Appliance;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 
-public class InterfaceState {
+public class ApplianceSet implements Serializable {
     private List<Appliance> appliances = new ArrayList<>();
 
     public void addAppliance(Appliance appliance) {

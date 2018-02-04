@@ -1,7 +1,10 @@
 package me.swarmer.ptoop.lab3.appliances;
 
 
-public interface Appliance {
+import java.io.Serializable;
+
+
+public interface Appliance extends Serializable {
     String getName();
 
     void setName(String name);
