@@ -1,8 +1,10 @@
 package me.swarmer.ptoop.lab4.ui;
 
 
+import javafx.util.Pair;
 import me.swarmer.ptoop.lab4.appliances.Appliance;
 import me.swarmer.ptoop.lab4.appliances.ConcreteAppliance;
+import me.swarmer.ptoop.lab4.plugins.PluginSet;
 import me.swarmer.ptoop.lab4.util.ClassRetriever;
 
 import java.io.*;
@@ -18,8 +20,24 @@ import java.util.stream.Collectors;
 public class ConsoleInterface {
     private ApplianceSet state = new ApplianceSet();
     private Scanner scanner = new Scanner(System.in);
-    private ConsoleMenu menu = buildMenu(scanner);
-    private List<Class<?>> applianceClasses = findApplianceClasses();
+    private ConsoleMenu menu;
+    private PluginSet pluginSet;
+    private List<Class<?>> applianceClasses;
+
+    public ConsoleInterface(String[] arguments) {
+        pluginSet = new PluginSet();
+
+        for (String pluginSpec : arguments) {
+            pluginSet.loadPlugin(pluginSpec);
+        }
+
+        applianceClasses = findApplianceClasses();
+        menu = buildMenu(scanner);
+    }
+
+    public ApplianceSet getState() {
+        return state;
+    }
 
     /**
      * Register menu items and their handlers
@@ -33,6 +51,11 @@ public class ConsoleInterface {
         menu.addEntry("Add object", this::addObject);
         menu.addEntry("Edit object", this::editObject);
         menu.addEntry("Remove object", this::removeObject);
+
+        for (Pair<String, Runnable> command : pluginSet.getCommands(state)) {
+            menu.addEntry(command.getKey(), command.getValue());
+        }
+
         menu.addEntry("Exit", () -> {
             System.exit(0);
         });
@@ -52,6 +75,8 @@ public class ConsoleInterface {
                     )
                     .collect(Collectors.toList());
 
+            applianceClasses.addAll(pluginSet.getApplianceClasses());
+
             return applianceClasses;
         } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -64,7 +89,7 @@ public class ConsoleInterface {
     }
 
     public static void main(String[] args) {
-        ConsoleInterface consoleInterface = new ConsoleInterface();
+        ConsoleInterface consoleInterface = new ConsoleInterface(args);
         consoleInterface.run();
     }
 
