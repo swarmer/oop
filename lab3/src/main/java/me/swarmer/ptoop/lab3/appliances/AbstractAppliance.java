@@ -4,10 +4,13 @@ package me.swarmer.ptoop.lab3.appliances;
 import java.util.Objects;
 
 
+/**
+ * Base appliance functionality
+ */
 public abstract class AbstractAppliance implements Appliance {
-    String name;
-    double consumedPower;
-    boolean isTurnedOn;
+    private String name;
+    private double consumedPower;
+    private boolean isTurnedOn;
 
     public AbstractAppliance(String name, double consumedPower, boolean isTurnedOn) {
         this.name = name;

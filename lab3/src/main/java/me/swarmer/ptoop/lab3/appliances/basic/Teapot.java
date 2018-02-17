@@ -3,6 +3,9 @@ package me.swarmer.ptoop.lab3.appliances.basic;
 import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
 
 
+/**
+ * An electric teapot
+ */
 @ConcreteAppliance
 public class Teapot extends BasicAppliance {
     public Teapot() {

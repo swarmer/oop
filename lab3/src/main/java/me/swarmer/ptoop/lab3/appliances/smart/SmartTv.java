@@ -3,6 +3,9 @@ package me.swarmer.ptoop.lab3.appliances.smart;
 import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
 
 
+/**
+ * A smart television
+ */
 @ConcreteAppliance
 public class SmartTv extends SmartAppliance {
     public SmartTv() {

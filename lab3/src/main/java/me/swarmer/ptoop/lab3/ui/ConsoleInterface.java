@@ -6,19 +6,24 @@ import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
 import me.swarmer.ptoop.lab3.util.ClassRetriever;
 
 import java.io.*;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 
+/**
+ * Console UI for appliance management
+ */
 public class ConsoleInterface {
     private ApplianceSet state = new ApplianceSet();
     private Scanner scanner = new Scanner(System.in);
     private ConsoleMenu menu = buildMenu(scanner);
     private List<Class<?>> applianceClasses = findApplianceClasses();
 
+    /**
+     * Register menu items and their handlers
+     */
     private ConsoleMenu buildMenu(Scanner scanner) {
         ConsoleMenu menu = new ConsoleMenu(scanner, "Home appliance demo");
 
@@ -35,6 +40,9 @@ public class ConsoleInterface {
         return menu;
     }
 
+    /**
+     * Find all instantiable appliance classes
+     */
     private List<Class<?>> findApplianceClasses() {
         try {
             List<Class<?>> classes = ClassRetriever.getClasses("me.swarmer.ptoop.lab3.appliances");
@@ -60,6 +68,9 @@ public class ConsoleInterface {
         consoleInterface.run();
     }
 
+    /**
+     * Load a serialized appliance set
+     */
     private void loadObjectList() {
         System.out.print("File path: ");
         String path = scanner.nextLine();
@@ -79,6 +90,9 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     * Serialize and save an appliance set
+     */
     private void saveObjectList() {
         System.out.print("File path: ");
         String path = scanner.nextLine();
@@ -95,6 +109,9 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     * Add a new appliance to our list, asking the user for values
+     */
     private void addObject() {
         try {
             for (int i = 0; i < applianceClasses.size(); ++i) {
@@ -122,6 +139,9 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     * Edit an object with a known index, asking the user for values
+     */
     private void editObjectByIndex(int index) {
         Appliance appliance = state.getAppliance(index);
 
@@ -138,6 +158,9 @@ public class ConsoleInterface {
         appliance.setTurnedOn(turnedOn);
     }
 
+    /**
+     * Edit a particular object, asking the user for values
+     */
     private void editObject() {
         try {
             System.out.print("Object index: ");
@@ -152,6 +175,9 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     * Remove an object from the list of objects
+     */
     private void removeObject() {
         try {
             System.out.print("Object index: ");
@@ -166,6 +192,9 @@ public class ConsoleInterface {
         }
     }
 
+    /**
+     * Print the list of objects
+     */
     private void printObjects() {
         System.out.println("Appliance list:");
 

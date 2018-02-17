@@ -4,6 +4,9 @@ package me.swarmer.ptoop.lab3.appliances;
 import java.io.Serializable;
 
 
+/**
+ * A generic appliance class
+ */
 public interface Appliance extends Serializable {
     String getName();
 

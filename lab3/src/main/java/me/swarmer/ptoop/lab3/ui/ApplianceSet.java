@@ -9,6 +9,9 @@ import java.util.Collections;
 import java.util.List;
 
 
+/**
+ * An appliance set container, serves as the application state storage and is serializable to file
+ */
 public class ApplianceSet implements Serializable {
     private List<Appliance> appliances = new ArrayList<>();
 

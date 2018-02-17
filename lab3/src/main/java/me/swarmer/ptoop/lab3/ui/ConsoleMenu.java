@@ -4,6 +4,9 @@ package me.swarmer.ptoop.lab3.ui;
 import java.util.*;
 
 
+/**
+ * A generic console menu offering a selection among options
+ */
 public class ConsoleMenu {
     private List<Runnable> menuItemHandlers = new ArrayList<>();
     private List<String> menuItemDescriptions = new ArrayList<>();
@@ -20,6 +23,10 @@ public class ConsoleMenu {
         menuItemDescriptions.add(description);
     }
 
+    /**
+     * Ask the user to enter one menu entry, retrying on incorrect input
+     * Then execute the handler corresponding to the selected entry
+     */
     public void askOnce() {
         while (true) {
             try {
@@ -44,6 +51,9 @@ public class ConsoleMenu {
         }
     }
 
+    /**
+     * Ask the user and execute menu item handlers forever
+     */
     public void askForever() {
         while (true) {
             askOnce();
