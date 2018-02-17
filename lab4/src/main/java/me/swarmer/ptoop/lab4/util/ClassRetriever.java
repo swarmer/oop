@@ -1,4 +1,4 @@
-package me.swarmer.ptoop.lab3.util;
+package me.swarmer.ptoop.lab4.util;
 
 import java.io.File;
 import java.io.IOException;

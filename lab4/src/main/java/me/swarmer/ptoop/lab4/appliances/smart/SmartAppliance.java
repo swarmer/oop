@@ -1,9 +1,7 @@
-package me.swarmer.ptoop.lab3.appliances.smart;
+package me.swarmer.ptoop.lab4.appliances.smart;
 
 
-import me.swarmer.ptoop.lab3.appliances.AbstractAppliance;
-
-import java.util.Date;
+import me.swarmer.ptoop.lab4.appliances.AbstractAppliance;
 
 
 public abstract class SmartAppliance extends AbstractAppliance {

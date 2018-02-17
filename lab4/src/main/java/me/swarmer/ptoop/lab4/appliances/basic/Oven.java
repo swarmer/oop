@@ -1,6 +1,6 @@
-package me.swarmer.ptoop.lab3.appliances.basic;
+package me.swarmer.ptoop.lab4.appliances.basic;
 
-import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
+import me.swarmer.ptoop.lab4.appliances.ConcreteAppliance;
 
 
 /**
