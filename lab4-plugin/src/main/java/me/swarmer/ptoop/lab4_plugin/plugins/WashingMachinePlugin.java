@@ -9,6 +9,9 @@ import me.swarmer.ptoop.lab4_plugin.appliances.Microwave;
 import me.swarmer.ptoop.lab4_plugin.appliances.WashingMachine;
 
 
+/**
+ * A plugin specification
+ */
 public class WashingMachinePlugin implements Plugin {
     @Override
     public Class<?>[] getApplianceClasses() {

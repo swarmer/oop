@@ -52,6 +52,7 @@ public class ConsoleInterface {
         menu.addEntry("Edit object", this::editObject);
         menu.addEntry("Remove object", this::removeObject);
 
+        // Add commands from loaded plugins
         for (Pair<String, Runnable> command : pluginSet.getCommands(state)) {
             menu.addEntry(command.getKey(), command.getValue());
         }
@@ -75,6 +76,7 @@ public class ConsoleInterface {
                     )
                     .collect(Collectors.toList());
 
+            // Take classes from the loaded plugins
             applianceClasses.addAll(pluginSet.getApplianceClasses());
 
             return applianceClasses;
@@ -157,9 +159,7 @@ public class ConsoleInterface {
             System.out.println("Object added");
         } catch (NumberFormatException | IndexOutOfBoundsException ex) {
             System.out.println("Invalid index");
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
+        } catch (IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
         }
     }

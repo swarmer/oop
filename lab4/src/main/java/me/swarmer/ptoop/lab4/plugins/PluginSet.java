@@ -12,9 +12,16 @@ import java.util.Arrays;
 import java.util.List;
 
 
+/**
+ * A class aggregating all loaded plugins
+ */
 public class PluginSet {
     ArrayList<Plugin> plugins = new ArrayList();
 
+    /**
+     * Load a specified plugin
+     * @param pluginSpec: A string with two parts separated by a colon: path to a jar, and the name of the plugin class
+     */
     public void loadPlugin(String pluginSpec) {
         try {
             String[] tokens = pluginSpec.split(":", 2);
@@ -37,6 +44,10 @@ public class PluginSet {
         }
     }
 
+    /**
+     * Get appliance classes added by all loaded plugins
+     * @return a list of appliance classes
+     */
     public List<Class<?>> getApplianceClasses() {
         List<Class<?>> applianceClasses = new ArrayList<>();
 
@@ -47,6 +58,11 @@ public class PluginSet {
         return applianceClasses;
     }
 
+    /**
+     * Get commands added by all loaded plugins
+     * @param applianceSet a currently used appliance set that commands can work with
+     * @return a list of command name and command runnable pairs
+     */
     public List<Pair<String, Runnable>> getCommands(ApplianceSet applianceSet) {
         List<Pair<String, Runnable>> commands = new ArrayList<>();
 

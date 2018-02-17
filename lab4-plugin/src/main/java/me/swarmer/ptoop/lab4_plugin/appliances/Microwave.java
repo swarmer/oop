@@ -6,7 +6,7 @@ import me.swarmer.ptoop.lab4.appliances.ConcreteAppliance;
 
 
 /**
- * A microwave
+ * A smart microwave
  */
 @ConcreteAppliance
 public class Microwave extends AbstractAppliance {
