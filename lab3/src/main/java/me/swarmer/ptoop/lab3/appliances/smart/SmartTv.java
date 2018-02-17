@@ -1,6 +1,9 @@
 package me.swarmer.ptoop.lab3.appliances.smart;
 
+import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
 
+
+@ConcreteAppliance
 public class SmartTv extends SmartAppliance {
     public SmartTv() {
         super("Unnamed TV", 0, false);

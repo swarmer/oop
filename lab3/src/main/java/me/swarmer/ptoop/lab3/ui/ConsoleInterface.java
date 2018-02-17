@@ -2,6 +2,7 @@ package me.swarmer.ptoop.lab3.ui;
 
 
 import me.swarmer.ptoop.lab3.appliances.Appliance;
+import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
 import me.swarmer.ptoop.lab3.util.ClassRetriever;
 
 import java.io.*;
@@ -39,7 +40,7 @@ public class ConsoleInterface {
             List<Class<?>> classes = ClassRetriever.getClasses("me.swarmer.ptoop.lab3.appliances");
             List<Class<?>> applianceClasses = classes.stream()
                     .filter((c) ->
-                            Appliance.class.isAssignableFrom(c) && !Modifier.isAbstract(c.getModifiers())
+                        Appliance.class.isAssignableFrom(c) && c.isAnnotationPresent(ConcreteAppliance.class)
                     )
                     .collect(Collectors.toList());
 

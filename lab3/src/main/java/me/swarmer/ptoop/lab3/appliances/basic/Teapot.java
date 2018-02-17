@@ -1,6 +1,9 @@
 package me.swarmer.ptoop.lab3.appliances.basic;
 
+import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
 
+
+@ConcreteAppliance
 public class Teapot extends BasicAppliance {
     public Teapot() {
         super("Unnamed teapot", 0, false);

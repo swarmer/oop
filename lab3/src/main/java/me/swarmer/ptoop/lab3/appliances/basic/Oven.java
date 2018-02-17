@@ -1,6 +1,9 @@
 package me.swarmer.ptoop.lab3.appliances.basic;
 
+import me.swarmer.ptoop.lab3.appliances.ConcreteAppliance;
 
+
+@ConcreteAppliance
 public class Oven extends BasicAppliance {
     public Oven() {
         super("Unnamed oven", 0, false);
