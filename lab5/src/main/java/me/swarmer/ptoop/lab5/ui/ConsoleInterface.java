@@ -143,9 +143,12 @@ public class ConsoleInterface {
                 os = plugin.wrapOutputStream(os);
             }
 
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            ObjectOutputStream oos = new ObjectOutputStream(os);
 
             oos.writeObject(state);
+            oos.flush();
+
+            oos.close();
 
             System.out.println("Saved");
         } catch (IOException e) {
