@@ -11,6 +11,7 @@ import me.swarmer.ptoop.lab5.util.ObjectInputStreamCustomLoader;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -107,7 +108,9 @@ public class ConsoleInterface {
         try (FileInputStream fis = new FileInputStream(path)) {
             InputStream is = fis;
 
-            for (Plugin plugin : pluginSet.getPlugins()) {
+            List<Plugin> plugins = new ArrayList<Plugin>(pluginSet.getPlugins());
+            Collections.reverse(plugins);
+            for (Plugin plugin : plugins) {
                 is = plugin.wrapInputStream(is);
             }
 
