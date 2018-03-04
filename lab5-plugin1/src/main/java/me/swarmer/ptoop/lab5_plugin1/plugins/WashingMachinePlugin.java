@@ -2,9 +2,9 @@ package me.swarmer.ptoop.lab5_plugin1.plugins;
 
 
 import javafx.util.Pair;
-import me.swarmer.ptoop.lab4.appliances.Appliance;
-import me.swarmer.ptoop.lab4.plugins.Plugin;
-import me.swarmer.ptoop.lab4.ui.ApplianceSet;
+import me.swarmer.ptoop.lab5.appliances.Appliance;
+import me.swarmer.ptoop.lab5.plugins.Plugin;
+import me.swarmer.ptoop.lab5.ui.ApplianceSet;
 import me.swarmer.ptoop.lab5_plugin1.appliances.Microwave;
 import me.swarmer.ptoop.lab5_plugin1.appliances.WashingMachine;
 

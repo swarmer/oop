@@ -1,7 +1,7 @@
 package me.swarmer.ptoop.lab5_plugin1.appliances;
 
-import me.swarmer.ptoop.lab4.appliances.ConcreteAppliance;
-import me.swarmer.ptoop.lab4.appliances.AbstractAppliance;
+import me.swarmer.ptoop.lab5.appliances.ConcreteAppliance;
+import me.swarmer.ptoop.lab5.appliances.AbstractAppliance;
 
 
 /**
