@@ -1,11 +1,11 @@
-package me.swarmer.ptoop.lab4.ui;
+package me.swarmer.ptoop.lab5.ui;
 
 
 import javafx.util.Pair;
-import me.swarmer.ptoop.lab4.appliances.Appliance;
-import me.swarmer.ptoop.lab4.appliances.ConcreteAppliance;
-import me.swarmer.ptoop.lab4.plugins.PluginSet;
-import me.swarmer.ptoop.lab4.util.ClassRetriever;
+import me.swarmer.ptoop.lab5.appliances.Appliance;
+import me.swarmer.ptoop.lab5.appliances.ConcreteAppliance;
+import me.swarmer.ptoop.lab5.plugins.PluginSet;
+import me.swarmer.ptoop.lab5.util.ClassRetriever;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -69,7 +69,7 @@ public class ConsoleInterface {
      */
     private List<Class<?>> findApplianceClasses() {
         try {
-            List<Class<?>> classes = ClassRetriever.getClasses("me.swarmer.ptoop.lab4.appliances");
+            List<Class<?>> classes = ClassRetriever.getClasses("me.swarmer.ptoop.lab5.appliances");
             List<Class<?>> applianceClasses = classes.stream()
                     .filter((c) ->
                         Appliance.class.isAssignableFrom(c) && c.isAnnotationPresent(ConcreteAppliance.class)

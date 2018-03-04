@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: me.swarmer.ptoop.lab4.ui.ConsoleInterface
+Main-Class: me.swarmer.ptoop.lab5.ui.ConsoleInterface
 

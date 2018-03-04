@@ -1,8 +1,8 @@
-package me.swarmer.ptoop.lab4.plugins;
+package me.swarmer.ptoop.lab5.plugins;
 
 
 import javafx.util.Pair;
-import me.swarmer.ptoop.lab4.ui.ApplianceSet;
+import me.swarmer.ptoop.lab5.ui.ApplianceSet;
 
 
 /**

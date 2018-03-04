@@ -1,4 +1,4 @@
-package me.swarmer.ptoop.lab4_plugin.appliances;
+package me.swarmer.ptoop.lab5_plugin1.appliances;
 
 
 import me.swarmer.ptoop.lab4.appliances.AbstractAppliance;

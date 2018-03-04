@@ -1,7 +1,7 @@
-package me.swarmer.ptoop.lab4.appliances.smart;
+package me.swarmer.ptoop.lab5.appliances.smart;
 
 
-import me.swarmer.ptoop.lab4.appliances.AbstractAppliance;
+import me.swarmer.ptoop.lab5.appliances.AbstractAppliance;
 
 
 public abstract class SmartAppliance extends AbstractAppliance {

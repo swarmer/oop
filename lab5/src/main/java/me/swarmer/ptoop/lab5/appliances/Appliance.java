@@ -1,4 +1,4 @@
-package me.swarmer.ptoop.lab4.appliances;
+package me.swarmer.ptoop.lab5.appliances;
 
 
 import java.io.Serializable;

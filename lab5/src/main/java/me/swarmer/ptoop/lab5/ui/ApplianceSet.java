@@ -1,7 +1,7 @@
-package me.swarmer.ptoop.lab4.ui;
+package me.swarmer.ptoop.lab5.ui;
 
 
-import me.swarmer.ptoop.lab4.appliances.Appliance;
+import me.swarmer.ptoop.lab5.appliances.Appliance;
 
 import java.io.Serializable;
 import java.util.ArrayList;
