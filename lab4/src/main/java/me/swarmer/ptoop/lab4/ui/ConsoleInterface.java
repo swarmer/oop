@@ -6,6 +6,7 @@ import me.swarmer.ptoop.lab4.appliances.Appliance;
 import me.swarmer.ptoop.lab4.appliances.ConcreteAppliance;
 import me.swarmer.ptoop.lab4.plugins.PluginSet;
 import me.swarmer.ptoop.lab4.util.ClassRetriever;
+import me.swarmer.ptoop.lab4.util.ObjectInputStreamCustomLoader;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -103,7 +104,8 @@ public class ConsoleInterface {
         String path = scanner.nextLine();
 
         try (FileInputStream fis = new FileInputStream(path)) {
-            ObjectInputStream ois = new ObjectInputStream(fis);
+            ClassLoader classLoader = pluginSet.getAllPluginsClassLoader();
+            ObjectInputStream ois = new ObjectInputStreamCustomLoader(fis, classLoader);
 
             ApplianceSet state = (ApplianceSet)ois.readObject();
             this.state = state;

@@ -16,7 +16,8 @@ import java.util.List;
  * A class aggregating all loaded plugins
  */
 public class PluginSet {
-    ArrayList<Plugin> plugins = new ArrayList();
+    ArrayList<Plugin> plugins = new ArrayList<>();
+    ArrayList<URL> pluginUrls = new ArrayList<>();
 
     /**
      * Load a specified plugin
@@ -30,8 +31,10 @@ public class PluginSet {
 
             File jarFile = new File(jarPath);
 
+            URL pluginUrl = jarFile.toURI().toURL();
+            pluginUrls.add(pluginUrl);
             URLClassLoader loader = new URLClassLoader(
-                    new URL[]{ jarFile.toURI().toURL() },
+                    new URL[]{ pluginUrl },
                     this.getClass().getClassLoader()
             );
             Class pluginClass = Class.forName(className, true, loader);
@@ -42,6 +45,21 @@ public class PluginSet {
         } catch (ClassNotFoundException | MalformedURLException | InstantiationException | IllegalAccessException e) {
             System.err.printf("Error loading plugin %s", pluginSpec);
         }
+    }
+
+    /**
+     * Get a classloader capable of loading classes from all loaded plugins
+     * @return ClassLoader
+     */
+    public ClassLoader getAllPluginsClassLoader() {
+        URL[] pluginUrlsArray = pluginUrls.toArray(new URL[pluginUrls.size()]);
+
+        URLClassLoader loader = new URLClassLoader(
+                pluginUrlsArray,
+                this.getClass().getClassLoader()
+        );
+
+        return loader;
     }
 
     /**
