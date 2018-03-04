@@ -11,6 +11,9 @@ import java.io.OutputStream;
 import java.util.zip.*;
 
 
+/**
+ * A plugin implementing compression functionality for serialization
+ */
 public class ZipPlugin implements Plugin {
     private boolean zippingEnabled = false;
 
@@ -24,11 +27,17 @@ public class ZipPlugin implements Plugin {
         };
     }
 
+    /**
+     * Toggle wrapping of streams used when serializing or deserializing
+     */
     public void toggleZipping() {
         zippingEnabled = !zippingEnabled;
         System.out.printf("Zipping enabled: %b", zippingEnabled);
     }
 
+    /**
+     * Wrap passed stream in a gzip stream
+     */
     public OutputStream wrapOutputStream(OutputStream wrappedStream) throws IOException {
         if (!zippingEnabled) {
             return wrappedStream;
@@ -38,6 +47,9 @@ public class ZipPlugin implements Plugin {
         return zos;
     }
 
+    /**
+     * Wrap passed stream in a gzip stream
+     */
     public InputStream wrapInputStream(InputStream wrappedStream) throws IOException {
         if (!zippingEnabled) {
             return wrappedStream;
