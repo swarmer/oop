@@ -17,6 +17,7 @@ public interface Plugin {
 
     Pair<String, Runnable>[] getCommands(ApplianceSet applianceSet);
 
+    // wrapOutputStream and wrapInputStream allow to customize serialization
     default OutputStream wrapOutputStream(OutputStream wrappedStream) throws IOException {
         return wrappedStream;
     }

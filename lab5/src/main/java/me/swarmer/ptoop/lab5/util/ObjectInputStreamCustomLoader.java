@@ -4,6 +4,9 @@ package me.swarmer.ptoop.lab5.util;
 import java.io.*;
 
 
+/**
+ * A custom input stream that loads classes using a specified classloader
+ */
 public class ObjectInputStreamCustomLoader extends ObjectInputStream
 {
     private ClassLoader loader;

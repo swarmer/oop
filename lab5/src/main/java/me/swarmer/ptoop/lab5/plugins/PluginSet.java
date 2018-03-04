@@ -17,7 +17,7 @@ import java.util.List;
 
 
 /**
- * A class aggregating all loaded plugins
+ * A Composite plugin aggregating all loaded plugins
  */
 public class PluginSet implements Plugin {
     ArrayList<Plugin> plugins = new ArrayList<>();
@@ -99,6 +99,12 @@ public class PluginSet implements Plugin {
         return Collections.unmodifiableList(plugins);
     }
 
+    /**
+     * Go over all plugins and decorate the specified stream
+     * @param wrappedStream a stream used in serialization
+     * @return a decorated (possibly many times) stream
+     * @throws IOException
+     */
     @Override
     public OutputStream wrapOutputStream(OutputStream wrappedStream) throws IOException {
         for (Plugin plugin : plugins) {
@@ -108,6 +114,12 @@ public class PluginSet implements Plugin {
         return wrappedStream;
     }
 
+    /**
+     * Go over all plugins and decorate the specified stream
+     * @param wrappedStream a stream used in deserialization
+     * @return a decorated (possibly many times) stream
+     * @throws IOException
+     */
     @Override
     public InputStream wrapInputStream(InputStream wrappedStream) throws IOException {
         List<Plugin> pluginsCopy = new ArrayList<Plugin>(plugins);
