@@ -4,6 +4,7 @@ package me.swarmer.ptoop.lab5.ui;
 import javafx.util.Pair;
 import me.swarmer.ptoop.lab5.appliances.Appliance;
 import me.swarmer.ptoop.lab5.appliances.ConcreteAppliance;
+import me.swarmer.ptoop.lab5.plugins.Plugin;
 import me.swarmer.ptoop.lab5.plugins.PluginSet;
 import me.swarmer.ptoop.lab5.util.ClassRetriever;
 import me.swarmer.ptoop.lab5.util.ObjectInputStreamCustomLoader;
@@ -104,8 +105,14 @@ public class ConsoleInterface {
         String path = scanner.nextLine();
 
         try (FileInputStream fis = new FileInputStream(path)) {
+            InputStream is = fis;
+
+            for (Plugin plugin : pluginSet.getPlugins()) {
+                is = plugin.wrapInputStream(is);
+            }
+
             ClassLoader classLoader = pluginSet.getAllPluginsClassLoader();
-            ObjectInputStream ois = new ObjectInputStreamCustomLoader(fis, classLoader);
+            ObjectInputStream ois = new ObjectInputStreamCustomLoader(is, classLoader);
 
             ApplianceSet state = (ApplianceSet)ois.readObject();
             this.state = state;
@@ -127,6 +134,12 @@ public class ConsoleInterface {
         String path = scanner.nextLine();
 
         try (FileOutputStream fos = new FileOutputStream(path)) {
+            OutputStream os = fos;
+
+            for (Plugin plugin : pluginSet.getPlugins()) {
+                os = plugin.wrapOutputStream(os);
+            }
+
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             oos.writeObject(state);
