@@ -4,6 +4,9 @@ import javafx.util.Pair;
 import me.swarmer.ptoop.lab5.ui.ApplianceSet;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -16,7 +19,7 @@ import java.util.List;
 /**
  * A class aggregating all loaded plugins
  */
-public class PluginSet {
+public class PluginSet implements Plugin {
     ArrayList<Plugin> plugins = new ArrayList<>();
     ArrayList<URL> pluginUrls = new ArrayList<>();
 
@@ -67,14 +70,14 @@ public class PluginSet {
      * Get appliance classes added by all loaded plugins
      * @return a list of appliance classes
      */
-    public List<Class<?>> getApplianceClasses() {
+    public Class<?>[] getApplianceClasses() {
         List<Class<?>> applianceClasses = new ArrayList<>();
 
         for (Plugin plugin : plugins) {
             applianceClasses.addAll(Arrays.asList(plugin.getApplianceClasses()));
         }
 
-        return applianceClasses;
+        return applianceClasses.toArray(new Class<?>[applianceClasses.size()]);
     }
 
     /**
@@ -82,17 +85,37 @@ public class PluginSet {
      * @param applianceSet a currently used appliance set that commands can work with
      * @return a list of command name and command runnable pairs
      */
-    public List<Pair<String, Runnable>> getCommands(ApplianceSet applianceSet) {
+    public Pair<String, Runnable>[] getCommands(ApplianceSet applianceSet) {
         List<Pair<String, Runnable>> commands = new ArrayList<>();
 
         for (Plugin plugin : plugins) {
             commands.addAll(Arrays.asList(plugin.getCommands(applianceSet)));
         }
 
-        return commands;
+        return commands.toArray(new Pair[commands.size()]);
     }
 
     public List<Plugin> getPlugins() {
         return Collections.unmodifiableList(plugins);
+    }
+
+    @Override
+    public OutputStream wrapOutputStream(OutputStream wrappedStream) throws IOException {
+        for (Plugin plugin : plugins) {
+            wrappedStream = plugin.wrapOutputStream(wrappedStream);
+        }
+
+        return wrappedStream;
+    }
+
+    @Override
+    public InputStream wrapInputStream(InputStream wrappedStream) throws IOException {
+        List<Plugin> pluginsCopy = new ArrayList<Plugin>(plugins);
+        Collections.reverse(pluginsCopy);
+        for (Plugin plugin : pluginsCopy) {
+            wrappedStream = plugin.wrapInputStream(wrappedStream);
+        }
+
+        return wrappedStream;
     }
 }

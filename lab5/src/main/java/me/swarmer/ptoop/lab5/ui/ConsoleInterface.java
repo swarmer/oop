@@ -4,16 +4,12 @@ package me.swarmer.ptoop.lab5.ui;
 import javafx.util.Pair;
 import me.swarmer.ptoop.lab5.appliances.Appliance;
 import me.swarmer.ptoop.lab5.appliances.ConcreteAppliance;
-import me.swarmer.ptoop.lab5.plugins.Plugin;
 import me.swarmer.ptoop.lab5.plugins.PluginSet;
 import me.swarmer.ptoop.lab5.util.ClassRetriever;
 import me.swarmer.ptoop.lab5.util.ObjectInputStreamCustomLoader;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -80,7 +76,7 @@ public class ConsoleInterface {
                     .collect(Collectors.toList());
 
             // Take classes from the loaded plugins
-            applianceClasses.addAll(pluginSet.getApplianceClasses());
+            applianceClasses.addAll(Arrays.asList(pluginSet.getApplianceClasses()));
 
             return applianceClasses;
         } catch (ClassNotFoundException | IOException e) {
@@ -106,14 +102,7 @@ public class ConsoleInterface {
         String path = scanner.nextLine();
 
         try (FileInputStream fis = new FileInputStream(path)) {
-            InputStream is = fis;
-
-            List<Plugin> plugins = new ArrayList<Plugin>(pluginSet.getPlugins());
-            Collections.reverse(plugins);
-            for (Plugin plugin : plugins) {
-                is = plugin.wrapInputStream(is);
-            }
-
+            InputStream is = pluginSet.wrapInputStream(fis);
             ClassLoader classLoader = pluginSet.getAllPluginsClassLoader();
             ObjectInputStream ois = new ObjectInputStreamCustomLoader(is, classLoader);
 
@@ -137,12 +126,7 @@ public class ConsoleInterface {
         String path = scanner.nextLine();
 
         try (FileOutputStream fos = new FileOutputStream(path)) {
-            OutputStream os = fos;
-
-            for (Plugin plugin : pluginSet.getPlugins()) {
-                os = plugin.wrapOutputStream(os);
-            }
-
+            OutputStream os = pluginSet.wrapOutputStream(fos);
             ObjectOutputStream oos = new ObjectOutputStream(os);
 
             oos.writeObject(state);
